@@ -1,0 +1,42 @@
+<!-- profile.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+
+    <h2>User Profile</h2>
+
+    <div id="profileInfo">
+        <p><strong>Username:</strong> <span id="username"></span></p>
+        <p><strong>Email:</strong> <span id="email"></span></p>
+        <p><strong>Avatar:</strong></p>
+        <img id="avatar" alt="User Avatar">
+    </div>
+
+    <script>
+        const profileApiUrl = '/api/getProfile';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch(profileApiUrl)
+                .then(response => response.json())
+                .then(data => displayUserProfile(data))
+                .catch(error => console.error('Error fetching profile:', error));
+        });
+
+        function displayUserProfile(profileData) {
+            const usernameElement = document.getElementById('username');
+            const emailElement = document.getElementById('email');
+            const avatarElement = document.getElementById('avatar');
+
+            usernameElement.textContent = profileData.username;
+            emailElement.textContent = profileData.email;
+            avatarElement.src = profileData.avatarUrl;
+        }
+    </script>
+
+</body>
+</html>
